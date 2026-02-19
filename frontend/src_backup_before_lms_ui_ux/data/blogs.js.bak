@@ -1,0 +1,102 @@
+export const blogPosts = [
+    {
+        id: 1,
+        title: "10 Essential Skills Every Cabin Crew Member Needs in 2026",
+        excerpt: "Discover the top soft and technical skills airlines are prioritizing for cabin crew recruitment this year.",
+        category: "Cabin Crew",
+        author: "Sarah Jenkins",
+        date: "Feb 12, 2026",
+        readTime: "5 min read",
+        image: "https://images.unsplash.com/photo-1544717305-2782549b5136?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 2,
+        title: "The Future of Aviation Security: What You Need to Know",
+        excerpt: "From biometrics to AI surveillance, explore heavily impacting changes in global airport security protocols.",
+        category: "Security",
+        author: "Mark Davis",
+        date: "Feb 10, 2026",
+        readTime: "7 min read",
+        image: "https://images.unsplash.com/photo-1569154941061-e003428fc9df?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 3,
+        title: "How to Prepare for Your Pilot Licensing Exam",
+        excerpt: "A comprehensive study guide and tips from experienced captains to help you ace your PPL and CPL exams.",
+        category: "Pilot Training",
+        author: "Capt. James Wilson",
+        date: "Feb 08, 2026",
+        readTime: "10 min read",
+        image: "https://images.unsplash.com/photo-1542296332-2e44a996aaad?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 4,
+        title: "Understanding Airport Operations: A Beginner's Guide",
+        excerpt: "Learn the basics of how airports function behind the scenes, from ground handling to terminal management.",
+        category: "Operations",
+        author: "Emily Chen",
+        date: "Feb 05, 2026",
+        readTime: "6 min read",
+        image: "https://images.unsplash.com/photo-1530521954074-e64f6810b32d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 5,
+        title: "The Rise of Sustainable Aviation Fuel (SAF)",
+        excerpt: "How the aviation industry is shifting towards greener alternatives to reduce carbon footprints globally.",
+        category: "Industry News",
+        author: "Dr. Alan Grant",
+        date: "Feb 02, 2026",
+        readTime: "8 min read",
+        image: "https://images.unsplash.com/photo-1474302770737-173ee21bab63?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 6,
+        title: "Career Paths in Aviation Management",
+        excerpt: "Explore diverse career opportunities beyond flying, including airline strategy, revenue management, and logistics.",
+        category: "Career Advice",
+        author: "Linda Rodriguez",
+        date: "Jan 28, 2026",
+        readTime: "6 min read",
+        image: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 7,
+        title: "Mental Health Awareness for Flight Crew",
+        excerpt: "Why airlines are prioritizing mental well-being and resources available for pilots and cabin crew.",
+        category: "Health & Wellness",
+        author: "Dr. Rebecca Lee",
+        date: "Jan 25, 2026",
+        readTime: "5 min read",
+        image: "https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 8,
+        title: "Technological Advancements in Air Traffic Control",
+        excerpt: "How automation and digitalization are reshaping the way we manage crowded skies safely.",
+        category: "Technology",
+        author: "Michael Chang",
+        date: "Jan 20, 2026",
+        readTime: "7 min read",
+        image: "https://images.unsplash.com/photo-1559297434-fae8a1916a79?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 9,
+        title: "A Day in the Life of an Airline Dispatcher",
+        excerpt: "Step into the shoes of the 'pilots on the ground' who plan flights and ensure operational safety.",
+        category: "Operations",
+        author: "Tom Baker",
+        date: "Jan 15, 2026",
+        readTime: "4 min read",
+        image: "https://images.unsplash.com/photo-1587019158091-1a103c5dd17f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    },
+    {
+        id: 10,
+        title: "Global Aviation Trends to Watch This Year",
+        excerpt: "Key predictions for the aviation sector in 2026, from passenger experience upgrades to new aircraft models.",
+        category: "Traits & Trends",
+        author: "Global Aviation Reports",
+        date: "Jan 10, 2026",
+        readTime: "9 min read",
+        image: "https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80"
+    }
+]
