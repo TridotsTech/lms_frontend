@@ -1,19 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../pages/HomePage.vue'
+import { useAuth } from '../composables/useAuth.js'
 
 const routes = [
   { path: '/', name: 'Home', component: HomePage },
   { path: '/v2', name: 'HomeV2', component: () => import('../pages/HomePageV2.vue') },
-
-  // Legacy Redirects
-  { path: '/app', redirect: '/portal/student-dashboard' },
-  { path: '/app/:pathMatch(.*)', redirect: to => '/portal/' + to.params.pathMatch },
 
   // App Routes (Authenticated)
   {
     path: '/portal',
     component: () => import('../layouts/AppLayout.vue'),
     redirect: '/portal/student-dashboard',
+    meta: { requiresAuth: true },
     children: [
       { path: 'student-dashboard', name: 'Dashboard', component: () => import('../pages/app/Dashboard.vue') },
       { path: 'library', name: 'Library', component: () => import('../pages/app/Library.vue') },
@@ -31,7 +29,8 @@ const routes = [
   {
     path: '/portal/learn/:id',
     name: 'Learning',
-    component: () => import('../pages/app/LearningPage.vue')
+    component: () => import('../pages/app/LearningPage.vue'),
+    meta: { requiresAuth: true }
   },
 
   { path: '/v3', name: 'HomeV3', component: () => import('../pages/HomePageV3.vue') },
@@ -61,6 +60,26 @@ const router = createRouter({
     if (savedPosition) return savedPosition
     return { top: 0 }
   },
+})
+
+let authChecked = false;
+
+router.beforeEach(async (to, from, next) => {
+  const { user, fetchUser } = useAuth()
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!authChecked) {
+      await fetchUser()
+      authChecked = true
+    }
+    if (!user.value) {
+      next({ name: 'Login', query: { redirect: to.fullPath } })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
 })
 
 export default router

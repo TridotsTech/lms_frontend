@@ -40,6 +40,7 @@ const variantClasses = computed(() => {
     solid: 'bg-brown-700 text-white hover:bg-brown-800 shadow-sm',
     outline: 'border-2 border-brown-700 text-brown-700 hover:bg-brown-50',
     'solid-white': 'bg-white text-brown-700 hover:bg-gray-100 shadow-sm',
+    'outline-white': 'border-2 border-white text-white hover:bg-white hover:text-brown-900',
   }
   return variants[props.variant]
 })

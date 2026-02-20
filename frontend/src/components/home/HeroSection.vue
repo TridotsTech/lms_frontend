@@ -96,13 +96,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted, watch } from 'vue'
 import BaseButton from '../ui/BaseButton.vue'
+import { createListResource } from 'frappe-ui'
 
 const currentSlide = ref(0)
 const autoplayInterval = ref(null)
 
-const slides = [
+// Default fallback slides
+const defaultSlides = [
   {
     id: 1,
     tag: 'Global Standard',
@@ -117,7 +119,7 @@ const slides = [
     title: 'World-Class',
     subtitle: 'Service & Safety',
     description: 'Master the art of in-flight service and safety protocols with our comprehensive cabin crew training curriculum.',
-    image: '/images/program-cabin.png' // Using the high quality cabin image
+    image: '/images/program-cabin.png'
   },
   {
     id: 3,
@@ -125,17 +127,50 @@ const slides = [
     title: 'Airline Operations',
     subtitle: 'Command Center',
     description: 'Learn the critical systems and procedures that keep airlines running efficiently and safely around the clock.',
-    image: '/images/program-operations.png' // Using the operations image
+    image: '/images/program-operations.png'
   }
 ]
 
+const slides = ref(defaultSlides)
+
+const slideshowResource = createListResource({
+  doctype: 'Website Slideshow Item',
+  fields: ['name', 'image', 'heading', 'description'],
+  limit: 5,
+  auto: true,
+  onSuccess(data) {
+    if (data && data.length > 0) {
+      slides.value = data.map((item, index) => {
+        // We'll parse the heading in case it contains a subtitle or tag structure
+        // But for safe defaults we'll just map it directly. You can embed tag and subtitle in heading if formatted.
+        const titleParts = (item.heading || `Slide ${index + 1}`).split('|')
+
+        return {
+          id: item.name,
+          tag: titleParts.length > 2 ? titleParts[0].trim() : (index === 0 ? 'Featured' : 'Highlight'),
+          title: titleParts.length > 1 ? titleParts[titleParts.length > 2 ? 1 : 0].trim() : currentSlide.title,
+          subtitle: titleParts.length > 1 ? titleParts[titleParts.length - 1].trim() : '',
+          description: item.description || '',
+          image: item.image
+        }
+      })
+      // If no parsing pipe is found, reset basic formatting
+      slides.value.forEach((s, idx) => {
+          if(!s.title) {
+            s.title = item.heading || `Featured Item ${idx + 1}`;
+          }
+      })
+    }
+  }
+})
+
 const nextSlide = () => {
-  currentSlide.value = (currentSlide.value + 1) % slides.length
+  currentSlide.value = (currentSlide.value + 1) % slides.value.length
   resetAutoplay()
 }
 
 const prevSlide = () => {
-  currentSlide.value = (currentSlide.value - 1 + slides.length) % slides.length
+  currentSlide.value = (currentSlide.value - 1 + slides.value.length) % slides.value.length
   resetAutoplay()
 }
 
@@ -146,7 +181,7 @@ const setSlide = (index) => {
 
 const startAutoplay = () => {
   autoplayInterval.value = setInterval(() => {
-    currentSlide.value = (currentSlide.value + 1) % slides.length
+    currentSlide.value = (currentSlide.value + 1) % slides.value.length
   }, 5000)
 }
 
