@@ -134,20 +134,48 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import SectionBadge from '../components/ui/SectionBadge.vue'
-import { blogPosts } from '../data/blogs'
+import { createListResource } from 'frappe-ui'
 
 const loading = ref(true)
 const currentPage = ref(1)
 const itemsPerPage = 6 
 
-const totalPages = computed(() => Math.ceil(blogPosts.length / itemsPerPage))
+const blogsResource = createListResource({
+    doctype: 'Blog Post',
+    fields: ['name', 'title', 'blog_category', 'blog_intro', 'published_on', 'blogger', 'meta_image', 'route'],
+    filters: {
+        published: 1
+    },
+    orderBy: 'published_on desc',
+    auto: true,
+    onSuccess() {
+        loading.value = false
+    }
+})
+
+const totalPages = computed(() => {
+    if (!blogsResource.data) return 1
+    return Math.ceil(blogsResource.data.length / itemsPerPage)
+})
 
 const paginatedPosts = computed(() => {
+    if (!blogsResource.data) return []
     const start = (currentPage.value - 1) * itemsPerPage
     const end = start + itemsPerPage
-    return blogPosts.slice(start, end)
+    return blogsResource.data.slice(start, end).map(p => ({
+        id: p.name,
+        name: p.name,
+        route: p.route,
+        title: p.title,
+        category: p.blog_category,
+        excerpt: p.blog_intro,
+        date: p.published_on,
+        author: p.blogger,
+        image: p.meta_image,
+        readTime: '5 min read' // placeholder as read_time might not exist by default
+    }))
 })
 
 const visiblePages = computed(() => {
@@ -174,15 +202,11 @@ const visiblePages = computed(() => {
         return Array.from({length: totalPages.value}, (_, i) => i + 1);
     }
 
-    return range; // For now simple implementation above is enough, but returning full list if small
+    return range;
 })
 
 onMounted(() => {
-    console.log('BlogPage mounted, posts:', blogPosts)
-    // Simulate loading for better UX
-    setTimeout(() => {
-        loading.value = false
-    }, 800)
+    // Already fetched by auto: true
 })
 
 const changePage = (page) => {

@@ -90,23 +90,52 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { blogPosts } from '../data/blogs'
+import { createResource } from 'frappe-ui'
 
 const route = useRoute()
 const loading = ref(true)
 const post = ref(null)
 
-onMounted(() => {
-    // Simulate API fetch
-    const slug = route.params.id // Using 'id' param but it matches the slug/name
-    
-    // Find post by name (slug) or id if it was an id
-    setTimeout(() => {
-        post.value = blogPosts.find(p => p.name === slug || p.id == slug)
+const blogResource = createResource({
+    url: 'frappe.client.get',
+    makeParams() {
+        return {
+            doctype: 'Blog Post',
+            name: route.params.id
+        }
+    },
+    auto: true,
+    onSuccess(data) {
+        post.value = {
+            id: data.name,
+            name: data.name,
+            route: data.route,
+            title: data.title,
+            category: data.blog_category,
+            content: data.content,
+            date: data.published_on,
+            author: data.blogger,
+            image: data.meta_image,
+            readTime: '5 min read'
+        }
         loading.value = false
-    }, 600)
+    },
+    onError() {
+        loading.value = false
+        post.value = null
+    }
+})
+
+// Add watch in case route changes
+watch(() => route.params.id, () => {
+    loading.value = true
+    blogResource.fetch()
+})
+
+onMounted(() => {
+    // Fetched by auto: true
 })
 </script>
 
