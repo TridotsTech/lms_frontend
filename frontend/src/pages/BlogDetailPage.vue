@@ -90,52 +90,53 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { createResource } from 'frappe-ui'
 
 const route = useRoute()
 const loading = ref(true)
 const post = ref(null)
 
-const blogResource = createResource({
-    url: 'frappe.client.get',
-    makeParams() {
-        return {
-            doctype: 'Blog Post',
-            name: route.params.id
-        }
-    },
-    auto: true,
-    onSuccess(data) {
-        post.value = {
-            id: data.name,
-            name: data.name,
-            route: data.route,
-            title: data.title,
-            category: data.blog_category,
-            content: data.content,
-            date: data.published_on,
-            author: data.blogger,
-            image: data.meta_image,
-            readTime: '5 min read'
-        }
-        loading.value = false
-    },
-    onError() {
-        loading.value = false
-        post.value = null
-    }
-})
-
-// Add watch in case route changes
-watch(() => route.params.id, () => {
+async function fetchPost(slug) {
     loading.value = true
-    blogResource.fetch()
+    post.value = null
+    try {
+        const params = new URLSearchParams({
+            doctype: 'Blog Post',
+            name: slug
+        })
+        const res = await fetch(`/api/method/frappe.client.get?${params}`)
+        const json = await res.json()
+        const data = json.message
+
+        if (data) {
+            post.value = {
+                id: data.name,
+                name: data.name,
+                route: data.route,
+                title: data.title,
+                category: data.blog_category,
+                content: data.content,
+                date: data.published_on,
+                author: data.blogger,
+                image: data.meta_image,
+                readTime: '5 min read'
+            }
+        }
+    } catch (e) {
+        console.error('Error fetching blog post:', e)
+        post.value = null
+    } finally {
+        loading.value = false
+    }
+}
+
+watch(() => route.params.id, (newId) => {
+    if (newId) fetchPost(newId)
 })
 
 onMounted(() => {
-    // Fetched by auto: true
+    fetchPost(route.params.id)
 })
 </script>
 

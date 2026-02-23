@@ -136,35 +136,42 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import SectionBadge from '../components/ui/SectionBadge.vue'
-import { createListResource } from 'frappe-ui'
 
 const loading = ref(true)
 const currentPage = ref(1)
-const itemsPerPage = 6 
+const itemsPerPage = 6
+const allPosts = ref([])
 
-const blogsResource = createListResource({
-    doctype: 'Blog Post',
-    fields: ['name', 'title', 'blog_category', 'blog_intro', 'published_on', 'blogger', 'meta_image', 'route'],
-    filters: {
-        published: 1
-    },
-    orderBy: 'published_on desc',
-    auto: true,
-    onSuccess() {
+async function fetchBlogs() {
+    try {
+        const params = new URLSearchParams({
+            doctype: 'Blog Post',
+            fields: JSON.stringify(['name', 'title', 'blog_category', 'blog_intro', 'published_on', 'blogger', 'meta_image', 'route']),
+            filters: JSON.stringify([['published', '=', 1]]),
+            order_by: 'published_on desc',
+            limit_page_length: 0
+        })
+        const res = await fetch(`/api/method/frappe.client.get_list?${params}`)
+        const json = await res.json()
+        allPosts.value = json.message || []
+    } catch (e) {
+        console.error('Error fetching blog posts:', e)
+        allPosts.value = []
+    } finally {
         loading.value = false
     }
-})
+}
 
 const totalPages = computed(() => {
-    if (!blogsResource.data) return 1
-    return Math.ceil(blogsResource.data.length / itemsPerPage)
+    if (!allPosts.value.length) return 1
+    return Math.ceil(allPosts.value.length / itemsPerPage)
 })
 
 const paginatedPosts = computed(() => {
-    if (!blogsResource.data) return []
+    if (!allPosts.value.length) return []
     const start = (currentPage.value - 1) * itemsPerPage
     const end = start + itemsPerPage
-    return blogsResource.data.slice(start, end).map(p => ({
+    return allPosts.value.slice(start, end).map(p => ({
         id: p.name,
         name: p.name,
         route: p.route,
@@ -174,7 +181,7 @@ const paginatedPosts = computed(() => {
         date: p.published_on,
         author: p.blogger,
         image: p.meta_image,
-        readTime: '5 min read' // placeholder as read_time might not exist by default
+        readTime: '5 min read'
     }))
 })
 
@@ -197,7 +204,6 @@ const visiblePages = computed(() => {
         range.push(totalPages.value);
     }
     
-    // Simplify for small number of pages
     if (totalPages.value <= 5) {
         return Array.from({length: totalPages.value}, (_, i) => i + 1);
     }
@@ -206,7 +212,7 @@ const visiblePages = computed(() => {
 })
 
 onMounted(() => {
-    // Already fetched by auto: true
+    fetchBlogs()
 })
 
 const changePage = (page) => {
@@ -216,3 +222,4 @@ const changePage = (page) => {
     }
 }
 </script>
+
