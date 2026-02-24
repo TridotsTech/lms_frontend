@@ -101,11 +101,7 @@ async function fetchPost(slug) {
     loading.value = true
     post.value = null
     try {
-        const params = new URLSearchParams({
-            doctype: 'Blog Post',
-            name: slug
-        })
-        const res = await fetch(`/api/method/frappe.client.get?${params}`)
+        const res = await fetch(`/api/method/lms.api.public.get_blog_detail?slug=${slug}`)
         const json = await res.json()
         const data = json.message
 

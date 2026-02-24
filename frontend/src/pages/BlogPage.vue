@@ -144,14 +144,7 @@ const allPosts = ref([])
 
 async function fetchBlogs() {
     try {
-        const params = new URLSearchParams({
-            doctype: 'Blog Post',
-            fields: JSON.stringify(['name', 'title', 'blog_category', 'blog_intro', 'published_on', 'blogger', 'meta_image', 'route']),
-            filters: JSON.stringify([['published', '=', 1]]),
-            order_by: 'published_on desc',
-            limit_page_length: 0
-        })
-        const res = await fetch(`/api/method/frappe.client.get_list?${params}`)
+        const res = await fetch('/api/method/lms.api.public.get_published_blogs')
         const json = await res.json()
         allPosts.value = json.message || []
     } catch (e) {

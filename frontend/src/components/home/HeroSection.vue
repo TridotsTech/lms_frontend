@@ -134,13 +134,7 @@ const slides = ref(defaultSlides)
 
 async function fetchSlides() {
   try {
-    const params = new URLSearchParams({
-      doctype: 'Website Slideshow Item',
-      fields: JSON.stringify(['name', 'image', 'heading', 'description']),
-      limit_page_length: 10,
-      order_by: 'idx asc'
-    })
-    const res = await fetch(`/api/method/frappe.client.get_list?${params}`)
+    const res = await fetch('/api/method/lms.api.public.get_website_slideshow_items')
     const json = await res.json()
     const data = json.message
 
