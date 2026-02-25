@@ -7,7 +7,7 @@ export const navLinks = [
     children: [
       { label: 'About Us', to: '/about' },
       { label: 'Instructions', to: '/instructions' },
-      { label: 'Contact', to: '/contact' },
+      { label: 'Terms', to: '/terms' },
     ],
   },
   { label: 'Contact Us', to: '/contact' },

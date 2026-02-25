@@ -19,7 +19,7 @@
     </div>
 
     <!-- Content -->
-    <div class="relative z-10 h-full flex items-center">
+    <div class="relative z-10 h-full flex items-center" v-if="slides.length > 0">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div class="max-w-3xl">
           <transition name="slide-up" mode="out-in">
@@ -55,7 +55,7 @@
     </div>
 
     <!-- Slider Navigation & Indicators -->
-    <div class="absolute bottom-8 left-0 right-0 z-20">
+    <div class="absolute bottom-8 left-0 right-0 z-20" v-if="slides.length > 0">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <!-- Dots -->
         <div class="flex items-center gap-3">
@@ -102,35 +102,7 @@ import BaseButton from '../ui/BaseButton.vue'
 const currentSlide = ref(0)
 const autoplayInterval = ref(null)
 
-// Default fallback slides
-const defaultSlides = [
-  {
-    id: 1,
-    tag: 'Global Standard',
-    title: 'Professional Aviation',
-    subtitle: 'Training & Excellence',
-    description: 'Join the next generation of aviation professionals with our world-class training programs designed for global airline standards.',
-    image: '/images/hero-flight.png'
-  },
-  {
-    id: 2,
-    tag: 'Cabin Crew',
-    title: 'World-Class',
-    subtitle: 'Service & Safety',
-    description: 'Master the art of in-flight service and safety protocols with our comprehensive cabin crew training curriculum.',
-    image: '/images/program-cabin.png'
-  },
-  {
-    id: 3,
-    tag: 'Operations',
-    title: 'Airline Operations',
-    subtitle: 'Command Center',
-    description: 'Learn the critical systems and procedures that keep airlines running efficiently and safely around the clock.',
-    image: '/images/program-operations.png'
-  }
-]
-
-const slides = ref(defaultSlides)
+const slides = ref([])
 
 async function fetchSlides() {
   try {
@@ -140,12 +112,23 @@ async function fetchSlides() {
 
     if (data && data.length > 0) {
       slides.value = data.map((item, index) => {
-        const heading = item.heading || `Slide ${index + 1}`
+        let title = item.heading || `Slide ${index + 1}`
+        let subtitle = ''
+        if (title.includes('|')) {
+          const parts = title.split('|')
+          title = parts[0].trim()
+          subtitle = parts[1].trim()
+        } else if (title.includes('\n')) {
+          const parts = title.split('\n')
+          title = parts[0].trim()
+          subtitle = parts[1].trim()
+        }
+        
         return {
           id: item.name,
           tag: index === 0 ? 'Featured' : 'Highlight',
-          title: heading,
-          subtitle: '',
+          title: title,
+          subtitle: subtitle,
           description: item.description || '',
           image: item.image
         }
@@ -172,6 +155,7 @@ const setSlide = (index) => {
 }
 
 const startAutoplay = () => {
+  if (slides.value.length <= 1) return;
   autoplayInterval.value = setInterval(() => {
     currentSlide.value = (currentSlide.value + 1) % slides.value.length
   }, 5000)
