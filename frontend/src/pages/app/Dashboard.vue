@@ -10,7 +10,7 @@
 
     <!-- Stats Grid -->
     <section class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-       <div v-for="stat in stats" :key="stat.label" class="bg-white p-6 rounded-2xl shadow-sm border border-brown-100 flex items-center justify-between group hover:border-brown-300 transition-colors">
+       <component :is="stat.to ? 'router-link' : 'div'" :to="stat.to" v-for="stat in stats" :key="stat.label" class="bg-white p-6 rounded-2xl shadow-sm border border-brown-100 flex items-center justify-between group hover:border-brown-300 transition-colors" :class="{'cursor-pointer': stat.to}">
           <div>
              <p class="text-sm text-gray-500 font-medium mb-1">{{ stat.label }}</p>
              <p class="text-3xl font-bold text-gray-900">{{ stat.value }}</p>
@@ -18,7 +18,7 @@
           <div class="w-12 h-12 rounded-xl bg-brown-50 text-brown-600 flex items-center justify-center group-hover:bg-brown-600 group-hover:text-white transition-colors">
              <component :is="stat.icon" class="w-6 h-6" />
           </div>
-       </div>
+       </component>
     </section>
 
     <!-- Continue Learning (Hero Card) -->
@@ -116,9 +116,9 @@ const { user, loading: authLoading } = useAuth()
 const loading = ref(true)
 
 const stats = ref([
-   { label: 'Courses in Progress', value: '-', icon: BookOpenIcon },
-   { label: 'Certificates Earned', value: '-', icon: AwardIcon },
-   { label: 'Learning Hours', value: '-', icon: ClockIcon },
+   { label: 'Courses in Progress', value: '-', icon: BookOpenIcon, to: '/portal/my-courses' },
+   { label: 'Certificates Earned', value: '-', icon: AwardIcon, to: '/portal/certificates' },
+   { label: 'Learning Hours', value: '-', icon: ClockIcon, to: '' },
 ])
 
 const recentCourse = ref(null)

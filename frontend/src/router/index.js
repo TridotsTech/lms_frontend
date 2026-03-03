@@ -51,6 +51,8 @@ const routes = [
   { path: '/blog', name: 'Blog', component: () => import('../pages/BlogPage.vue') },
   { path: '/blog/:id', name: 'BlogDetail', component: () => import('../pages/BlogDetailPage.vue') },
   { path: '/login', name: 'Login', component: () => import('../pages/LoginPage.vue') },
+  { path: '/signup', name: 'SignUp', component: () => import('../pages/SignUpPage.vue') },
+  { path: '/forgot-password', name: 'ForgotPassword', component: () => import('../pages/ForgotPasswordPage.vue') },
 ]
 
 const router = createRouter({

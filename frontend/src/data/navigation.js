@@ -7,11 +7,11 @@ export const navLinks = [
     children: [
       { label: 'About Us', to: '/about' },
       { label: 'Instructions', to: '/instructions' },
-      { label: 'Terms', to: '/terms' },
+      { label: 'Terms of Use', to: '/terms' },
     ],
   },
-  { label: 'Contact Us', to: '/contact' },
   { label: 'Blog', to: '/blog' },
+  { label: 'Contact Us', to: '/contact' },
 ]
 
 export const footerLinks = {

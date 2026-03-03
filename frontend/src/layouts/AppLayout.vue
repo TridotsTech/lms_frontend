@@ -124,7 +124,8 @@ import {
   MenuIcon, 
   BellIcon,
   GraduationCapIcon,
-  ClipboardListIcon
+  ClipboardListIcon,
+  LayoutDashboardIcon
 } from 'lucide-vue-next'
 import { useAuth } from '../composables/useAuth.js'
 
@@ -135,7 +136,7 @@ const { user, logout: authLogout } = useAuth()
 const isSidebarOpen = ref(false)
 
 const navigation = [
-  { name: 'Dashboard', href: '/portal/student-dashboard', icon: HomeIcon },
+  { name: 'Dashboard', href: '/portal/student-dashboard', icon: LayoutDashboardIcon },
   { name: 'Library', href: '/portal/library', icon: BookOpenIcon },
   { name: 'My Courses', href: '/portal/my-courses', icon: GraduationCapIcon },
   { name: 'Exams', href: '/portal/exams', icon: ClipboardListIcon },

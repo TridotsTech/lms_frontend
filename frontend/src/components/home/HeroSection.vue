@@ -1,5 +1,12 @@
 <template>
   <section class="relative bg-black overflow-hidden h-[600px] lg:h-[700px]">
+    <!-- Loading State -->
+    <div v-if="slidesLoading" class="absolute inset-0 z-20 flex items-center justify-center bg-black">
+      <div class="text-center">
+        <div class="w-12 h-12 border-4 border-brown-400/30 border-t-brown-400 rounded-full animate-spin mx-auto mb-4"></div>
+      </div>
+    </div>
+
     <!-- Slider Backgrounds -->
     <div class="absolute inset-0 z-0 h-full w-full">
       <div
@@ -101,16 +108,34 @@ import BaseButton from '../ui/BaseButton.vue'
 
 const currentSlide = ref(0)
 const autoplayInterval = ref(null)
+const slidesLoading = ref(true)
 
 const slides = ref([])
 
+const fallbackSlides = [
+  {
+    id: 'fallback-1',
+    tag: 'Featured',
+    title: 'Professional Aviation',
+    subtitle: 'Training Programs',
+    description: 'Structured online training programs designed for aviation professionals worldwide.',
+    image: '/assets/lms_frontend/images/hero-flight.png'
+  },
+]
+
 async function fetchSlides() {
+  slidesLoading.value = true
   try {
     const res = await fetch('/api/method/lms.api.public.get_website_slideshow_items')
+    if (!res.ok) {
+      console.warn('Slideshow API returned status:', res.status)
+      slides.value = fallbackSlides
+      return
+    }
     const json = await res.json()
     const data = json.message
 
-    if (data && data.length > 0) {
+    if (data && Array.isArray(data) && data.length > 0) {
       slides.value = data.map((item, index) => {
         let title = item.heading || `Slide ${index + 1}`
         let subtitle = ''
@@ -125,7 +150,7 @@ async function fetchSlides() {
         }
         
         return {
-          id: item.name,
+          id: item.name || `slide-${index}`,
           tag: index === 0 ? 'Featured' : 'Highlight',
           title: title,
           subtitle: subtitle,
@@ -133,9 +158,14 @@ async function fetchSlides() {
           image: item.image
         }
       })
+    } else {
+      slides.value = fallbackSlides
     }
   } catch (e) {
-    console.warn('Could not load slideshow from database, using defaults.', e)
+    console.warn('Could not load slideshow from database, using fallback.', e)
+    slides.value = fallbackSlides
+  } finally {
+    slidesLoading.value = false
   }
 }
 
@@ -166,8 +196,8 @@ const resetAutoplay = () => {
   startAutoplay()
 }
 
-onMounted(() => {
-  fetchSlides()
+onMounted(async () => {
+  await fetchSlides()
   startAutoplay()
 })
 

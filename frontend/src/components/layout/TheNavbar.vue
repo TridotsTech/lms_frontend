@@ -93,8 +93,8 @@
              </div>
           </template>
           <template v-else>
-            <router-link to="/login" class="text-sm font-medium text-white/80 hover:text-white transition-colors px-4 py-2 border border-white/30 rounded-lg">
-              Sign In
+            <router-link to="/signup" class="text-sm font-medium text-white/80 hover:text-white transition-colors px-4 py-2 border border-white/30 rounded-lg">
+              Sign Up
             </router-link>
             <router-link to="/login" class="text-sm font-medium bg-gold-500 text-brown-900 hover:bg-gold-400 transition-colors px-4 py-2 rounded-lg">
               Login
@@ -156,8 +156,8 @@
           </template>
           <template v-else>
             <div class="pt-3 flex flex-col gap-2">
-              <router-link to="/login" class="w-full text-sm font-medium text-white border border-white/30 rounded-lg py-2 text-center" @click="mobileMenuOpen = false">
-                Sign In
+              <router-link to="/signup" class="w-full text-sm font-medium text-white border border-white/30 rounded-lg py-2 text-center" @click="mobileMenuOpen = false">
+                Sign Up
               </router-link>
               <router-link to="/login" class="w-full text-sm font-medium bg-gold-500 text-brown-900 rounded-lg py-2 text-center" @click="mobileMenuOpen = false">
                 Login

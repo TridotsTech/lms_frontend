@@ -30,21 +30,29 @@ app_license = "MIT"
 
 home_page = "index"
 
+# Custom page renderer to intercept SPA routes before Frappe's built-in handlers
+page_renderer = [
+	"lms_frontend.page_renderer.SPAPageRenderer",
+]
+
 website_route_rules = [
-    {"from_route": "/login", "to_route": "index"},
-    {"from_route": "/courses", "to_route": "index"},
-    {"from_route": "/courses/<path:app_path>", "to_route": "index"},
-    {"from_route": "/courses-v2", "to_route": "index"},
-    {"from_route": "/courses-v2/<path:app_path>", "to_route": "index"},
-    {"from_route": "/about", "to_route": "index"},
-    {"from_route": "/contact", "to_route": "index"},
-    {"from_route": "/blog", "to_route": "index"},
-    {"from_route": "/frontend/<path:app_path>", "to_route": "index"},
-    {"from_route": "/app/<path:app_path>", "to_route": "index"},
-    {"from_route": "/app", "to_route": "index"},
-    {"from_route": "/portal/<path:app_path>", "to_route": "index"},
-    {"from_route": "/portal", "to_route": "index"},
-    {"from_route": "/", "to_route": "index"},
+	{"from_route": "/login", "to_route": "index"},
+	{"from_route": "/courses", "to_route": "index"},
+	{"from_route": "/courses/<path:app_path>", "to_route": "index"},
+	{"from_route": "/courses-v2", "to_route": "index"},
+	{"from_route": "/courses-v2/<path:app_path>", "to_route": "index"},
+	{"from_route": "/about", "to_route": "index"},
+	{"from_route": "/contact", "to_route": "index"},
+	{"from_route": "/blog", "to_route": "index"},
+	{"from_route": "/blog/<path:app_path>", "to_route": "index"},
+	{"from_route": "/signup", "to_route": "index"},
+	{"from_route": "/forgot-password", "to_route": "index"},
+	{"from_route": "/frontend/<path:app_path>", "to_route": "index"},
+	{"from_route": "/app/<path:app_path>", "to_route": "index"},
+	{"from_route": "/app", "to_route": "index"},
+	{"from_route": "/portal/<path:app_path>", "to_route": "index"},
+	{"from_route": "/portal", "to_route": "index"},
+	{"from_route": "/", "to_route": "index"},
 ]
 
 # include js, css files in header of web template
@@ -260,4 +268,3 @@ website_route_rules = [
 # default_log_clearing_doctypes = {
 # 	"Logging DocType Name": 30  # days to retain logs
 # }
-

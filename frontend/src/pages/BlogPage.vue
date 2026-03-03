@@ -5,7 +5,7 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-2">
         <SectionBadge label="Blog" class="mb-6" />
         <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-          Aviation <span class="font-display italic text-brown-700">Insights</span> & News (Updated)
+          Aviation <span class="font-display italic text-brown-700">Insights</span> & News
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
           Stay updated with the latest trends, tips, and expert advice from the world of aviation training and operations.
