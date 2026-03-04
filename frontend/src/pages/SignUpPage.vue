@@ -101,6 +101,8 @@ async function handleSignUp() {
     const params = new URLSearchParams()
     params.append('email', form.email)
     params.append('full_name', form.fullName)
+    params.append('verify_terms', 1)
+    params.append('user_category', 'Student')
     params.append('redirect_to', '/login')
 
     const response = await fetch('/api/method/frappe.core.doctype.user.user.sign_up', {
