@@ -56,6 +56,41 @@
           />
         </div>
 
+        <!-- Category -->
+        <div>
+          <label for="userCategory" class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
+          <select
+            v-model="form.userCategory"
+            id="userCategory"
+            required
+            :disabled="success"
+            class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brown-200 focus:border-brown-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed text-gray-700"
+          >
+            <option value="" disabled>Select a category</option>
+            <option value="Student">Student</option>
+            <option value="Business Owner">Business Owner</option>
+            <option value="Manager (Sales/Marketing/Customer)">Manager (Sales/Marketing/Customer)</option>
+            <option value="Employee">Employee</option>
+            <option value="Freelancer/Just looking">Freelancer/Just looking</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+
+        <!-- Terms -->
+        <div class="flex items-start gap-3">
+          <input
+            v-model="form.verifyTerms"
+            id="verifyTerms"
+            type="checkbox"
+            required
+            :disabled="success"
+            class="mt-0.5 h-4 w-4 rounded border-gray-300 text-brown-700 focus:ring-brown-500 disabled:opacity-60 disabled:cursor-not-allowed"
+          />
+          <label for="verifyTerms" class="text-sm text-gray-600 leading-snug">
+            I have read and agree to your <span class="font-semibold text-gray-800">Terms of Use</span>
+          </label>
+        </div>
+
         <!-- Submit -->
         <button
           type="submit"
@@ -90,6 +125,8 @@ const successMessage = ref('')
 const form = reactive({
   fullName: '',
   email: '',
+  userCategory: '',
+  verifyTerms: false,
 })
 
 async function handleSignUp() {
@@ -101,8 +138,8 @@ async function handleSignUp() {
     const params = new URLSearchParams()
     params.append('email', form.email)
     params.append('full_name', form.fullName)
-    params.append('verify_terms', 1)
-    params.append('user_category', 'Student')
+    params.append('verify_terms', form.verifyTerms ? 1 : 0)
+    params.append('user_category', form.userCategory)
     params.append('redirect_to', '/login')
 
     const response = await fetch('/api/method/frappe.core.doctype.user.user.sign_up', {
