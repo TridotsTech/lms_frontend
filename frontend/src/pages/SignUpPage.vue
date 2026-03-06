@@ -129,6 +129,8 @@ const form = reactive({
   verifyTerms: false,
 })
 
+console.log("Test")
+
 async function handleSignUp() {
   error.value = ''
   success.value = false
