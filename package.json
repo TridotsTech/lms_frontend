@@ -1,0 +1,10 @@
+{
+    "name": "lms_frontend",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "cd frontend && yarn dev",
+        "build": "cd frontend && yarn build",
+        "preview": "cd frontend && yarn preview"
+    }
+}

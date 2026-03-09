@@ -87,7 +87,7 @@
             class="mt-0.5 h-4 w-4 rounded border-gray-300 text-brown-700 focus:ring-brown-500 disabled:opacity-60 disabled:cursor-not-allowed"
           />
           <label for="verifyTerms" class="text-sm text-gray-600 leading-snug">
-            I have read and agree to your <span class="font-semibold text-gray-800">Terms of Use</span>
+            I have read and agree to your <router-link to="/terms" class="font-semibold text-brown-700 hover:text-brown-800 transition-colors">Terms of Use</router-link>
           </label>
         </div>
 

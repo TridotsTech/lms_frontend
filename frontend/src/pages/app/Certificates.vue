@@ -101,7 +101,7 @@ function formatDate(date) {
 
 function viewCertificate(cert) {
   // Frappe default print format for certificate
-  window.open(`/api/method/frappe.utils.print_format.download_pdf?doctype=LMS%20Certificate&name=${cert.name}&format=${cert.template || 'Standard'}`, '_blank')
+  window.open(`/api/method/frappe.utils.print_format.download_pdf?doctype=LMS%20Certificate&name=${cert.name}&format=${cert.template || 'LMSCertificate'}&no_letterhead=1&letterhead=No%20Letterhead&settings=%7B%7D&_lang=en`, '_blank')
 }
 
 watch([user, authLoading], ([newUser, newLoading]) => {
