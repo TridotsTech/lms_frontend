@@ -3,7 +3,7 @@
     <slot name="default">
       {{ prefix }}
     </slot>
-    <span class="font-display italic text-brown-700">{{ highlight }}</span>
+    <span class="font-display italic text-brown-700 pl-[10px]">{{ highlight }}</span>
   </h2>
 </template>
 

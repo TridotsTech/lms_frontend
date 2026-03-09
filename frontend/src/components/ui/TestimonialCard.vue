@@ -4,22 +4,18 @@
     <p class="text-sm text-gray-500 leading-relaxed mb-5">{{ text }}</p>
     <div class="flex items-center gap-3">
       <div class="w-10 h-10 rounded-full bg-brown-100 overflow-hidden flex-shrink-0">
-        <img
-          :src="avatar"
-          :alt="name"
-          class="w-full h-full object-cover"
-          @error="onImgError"
-        />
+        <img :src="check_Image(avatar)" :alt="name" class="w-full h-full object-cover" @error="onImgError" />
       </div>
       <div>
         <p class="text-sm font-semibold text-gray-900">{{ name }}</p>
-        <StarRating :rating="rating" />
+        <!-- <StarRating :rating="rating" /> -->
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { check_Image } from '../../data/helper';
 import StarRating from './StarRating.vue'
 
 defineProps({

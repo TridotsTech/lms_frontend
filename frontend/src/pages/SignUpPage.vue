@@ -9,7 +9,8 @@
       </div>
 
       <!-- Sign Up Form -->
-      <form @submit.prevent="handleSignUp" class="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
+      <form @submit.prevent="handleSignUp"
+        class="bg-white border border-gray-200 rounded-2xl p-6 sm:p-8 space-y-6 shadow-sm">
         <!-- Success message -->
         <div v-if="success" class="flex items-center gap-3 p-4 bg-emerald-50 text-emerald-700 rounded-xl text-sm">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -21,7 +22,8 @@
         <!-- Error message -->
         <div v-if="error" class="flex items-center gap-3 p-4 bg-red-50 text-red-700 rounded-xl text-sm">
           <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
           </svg>
           {{ error }}
         </div>
@@ -29,43 +31,24 @@
         <!-- Full Name -->
         <div>
           <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1.5">Full Name</label>
-          <input
-            v-model="form.fullName"
-            id="fullName"
-            type="text"
-            required
-            :disabled="success"
-            autocomplete="name"
+          <input v-model="form.fullName" id="fullName" type="text" required :disabled="success" autocomplete="name"
             class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brown-200 focus:border-brown-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-            placeholder="Enter your full name"
-          />
+            placeholder="Enter your full name" />
         </div>
 
         <!-- Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1.5">Email Address</label>
-          <input
-            v-model="form.email"
-            id="email"
-            type="email"
-            required
-            :disabled="success"
-            autocomplete="email"
+          <input v-model="form.email" id="email" type="email" required :disabled="success" autocomplete="email"
             class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brown-200 focus:border-brown-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
-            placeholder="Enter your email address"
-          />
+            placeholder="Enter your email address" />
         </div>
 
         <!-- Category -->
         <div>
           <label for="userCategory" class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
-          <select
-            v-model="form.userCategory"
-            id="userCategory"
-            required
-            :disabled="success"
-            class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brown-200 focus:border-brown-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed text-gray-700"
-          >
+          <select v-model="form.userCategory" id="userCategory" required :disabled="success"
+            class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brown-200 focus:border-brown-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed text-gray-700">
             <option value="" disabled>Select a category</option>
             <option value="Student">Student</option>
             <option value="Business Owner">Business Owner</option>
@@ -78,25 +61,17 @@
 
         <!-- Terms -->
         <div class="flex items-start gap-3">
-          <input
-            v-model="form.verifyTerms"
-            id="verifyTerms"
-            type="checkbox"
-            required
-            :disabled="success"
-            class="mt-0.5 h-4 w-4 rounded border-gray-300 text-brown-700 focus:ring-brown-500 disabled:opacity-60 disabled:cursor-not-allowed"
-          />
+          <input v-model="form.verifyTerms" id="verifyTerms" type="checkbox" required :disabled="success"
+            class="mt-0.5 h-4 w-4 rounded border-gray-300 text-brown-700 focus:ring-brown-500 disabled:opacity-60 disabled:cursor-not-allowed" />
           <label for="verifyTerms" class="text-sm text-gray-600 leading-snug">
-            I have read and agree to your <router-link to="/terms" class="font-semibold text-brown-700 hover:text-brown-800 transition-colors">Terms of Use</router-link>
+            I have read and agree to your <router-link to="/terms" target="_blank"
+              class="font-semibold text-brown-700 hover:text-brown-800 transition-colors">Terms of Use</router-link>
           </label>
         </div>
 
         <!-- Submit -->
-        <button
-          type="submit"
-          :disabled="loading || success"
-          class="w-full flex items-center justify-center gap-2 px-8 py-3 text-base font-semibold rounded-lg bg-brown-700 text-white hover:bg-brown-800 shadow-sm transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed"
-        >
+        <button type="submit" :disabled="loading || success"
+          class="w-full flex items-center justify-center gap-2 px-8 py-3 text-base font-semibold rounded-lg bg-brown-700 text-white hover:bg-brown-800 shadow-sm transition-all duration-200 disabled:opacity-60 disabled:cursor-not-allowed">
           <svg v-if="loading" class="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" />
             <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
@@ -108,7 +83,8 @@
       <!-- Sign in link -->
       <p class="text-center text-sm text-gray-500">
         Already have an account?
-        <router-link to="/login" class="font-semibold text-brown-700 hover:text-brown-800 transition-colors">Sign In</router-link>
+        <router-link to="/login" class="font-semibold text-brown-700 hover:text-brown-800 transition-colors">Sign
+          In</router-link>
       </p>
     </div>
   </div>
@@ -125,7 +101,7 @@ const successMessage = ref('')
 const form = reactive({
   fullName: '',
   email: '',
-  userCategory: '',
+  userCategory: 'Student',
   verifyTerms: false,
 })
 
@@ -144,7 +120,7 @@ async function handleSignUp() {
     params.append('user_category', form.userCategory)
     params.append('redirect_to', '/login')
 
-    const response = await fetch('/api/method/frappe.core.doctype.user.user.sign_up', {
+    const response = await fetch('http://192.168.0.94:8003/api/method/frappe.core.doctype.user.user.sign_up', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

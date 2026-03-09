@@ -12,7 +12,8 @@
     "frappe-ui": "^0.1.262",
     "lucide-vue-next": "^0.564.0",
     "vue": "^3.4.0",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vue3-carousel": "^0.17.0"
   },
   "devDependencies": {
     "@iconify-json/lucide": "^1.2.92",

@@ -3,22 +3,19 @@
     <!-- Loading State -->
     <div v-if="slidesLoading" class="absolute inset-0 z-20 flex items-center justify-center bg-black">
       <div class="text-center">
-        <div class="w-12 h-12 border-4 border-brown-400/30 border-t-brown-400 rounded-full animate-spin mx-auto mb-4"></div>
+        <div class="w-12 h-12 border-4 border-brown-400/30 border-t-brown-400 rounded-full animate-spin mx-auto mb-4">
+        </div>
       </div>
     </div>
 
     <!-- Slider Backgrounds -->
     <div class="absolute inset-0 z-0 h-full w-full">
-      <div
-        v-for="(slide, index) in slides"
-        :key="slide.id"
+      <div v-for="(slide, index) in slides" :key="slide.id"
         class="absolute inset-0 w-full h-full bg-cover bg-center transition-all duration-[1500ms] ease-out"
-        :style="{ backgroundImage: `url(${slide.image})` }"
-        :class="{ 
-          'opacity-100 scale-105 z-10': currentSlide === index, 
-          'opacity-0 scale-100 z-0': currentSlide !== index 
-        }"
-      >
+        :style="{ backgroundImage: `url(${slide.image})` }" :class="{
+          'opacity-100 scale-105 z-10': currentSlide === index,
+          'opacity-0 scale-100 z-0': currentSlide !== index
+        }">
         <!-- Dark Overlay gradient -->
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -31,22 +28,25 @@
         <div class="max-w-3xl">
           <transition name="slide-up" mode="out-in">
             <div :key="slides[currentSlide].id" class="space-y-6">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brown-500/20 border border-brown-500/30 backdrop-blur-sm">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brown-500/20 border border-brown-500/30 backdrop-blur-sm">
                 <span class="w-2 h-2 rounded-full bg-brown-400 animate-pulse"></span>
-                <span class="text-xs font-medium text-brown-100 tracking-wide uppercase">{{ slides[currentSlide].tag }}</span>
+                <span class="text-xs font-medium text-brown-100 tracking-wide uppercase">{{ slides[currentSlide].tag
+                  }}</span>
               </div>
-              
+
               <h1 class="text-4xl sm:text-5xl lg:text-7xl font-bold text-white leading-tight">
                 {{ slides[currentSlide].title }}
-                <span class="block text-transparent bg-clip-text bg-gradient-to-r from-brown-200 to-white italic font-display mt-2">
+                <span
+                  class="block text-transparent bg-clip-text bg-gradient-to-r from-brown-200 to-white italic font-display mt-2">
                   {{ slides[currentSlide].subtitle }}
                 </span>
               </h1>
-              
+
               <p class="text-lg sm:text-xl text-gray-300 max-w-2xl leading-relaxed">
                 {{ slides[currentSlide].description }}
               </p>
-              
+
               <div class="flex flex-wrap gap-4 pt-4">
                 <BaseButton to="/courses" variant="solid-white" size="lg">
                   Explore Programs
@@ -66,33 +66,27 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
         <!-- Dots -->
         <div class="flex items-center gap-3">
-          <button
-            v-for="(slide, index) in slides"
-            :key="index"
-            @click="setSlide(index)"
+          <button v-for="(slide, index) in slides" :key="index" @click="setSlide(index)"
             class="h-1.5 rounded-full transition-all duration-300"
             :class="currentSlide === index ? 'w-12 bg-brown-400' : 'w-2 bg-white/40 hover:bg-white/60'"
-            :aria-label="`Go to slide ${index + 1}`"
-          ></button>
+            :aria-label="`Go to slide ${index + 1}`"></button>
         </div>
 
         <!-- Arrows -->
         <div class="hidden sm:flex items-center gap-4">
-          <button 
-            @click="prevSlide"
+          <button @click="prevSlide"
             class="p-3 rounded-full border border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-colors backdrop-blur-sm group"
-            aria-label="Previous slide"
-          >
-            <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            aria-label="Previous slide">
+            <svg class="w-6 h-6 transform group-hover:-translate-x-1 transition-transform" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
           </button>
-          <button 
-            @click="nextSlide"
+          <button @click="nextSlide"
             class="p-3 rounded-full border border-white/20 text-white hover:bg-white/10 hover:border-white/40 transition-colors backdrop-blur-sm group"
-            aria-label="Next slide"
-          >
-            <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            aria-label="Next slide">
+            <svg class="w-6 h-6 transform group-hover:translate-x-1 transition-transform" fill="none"
+              viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </button>
@@ -126,7 +120,7 @@ const fallbackSlides = [
 async function fetchSlides() {
   slidesLoading.value = true
   try {
-    const res = await fetch('/api/method/lms.api.public.get_website_slideshow_items')
+    const res = await fetch('http://192.168.0.94:8003/api/method/lms.api.public.get_website_slideshow_items')
     if (!res.ok) {
       console.warn('Slideshow API returned status:', res.status)
       slides.value = fallbackSlides
@@ -148,7 +142,7 @@ async function fetchSlides() {
           title = parts[0].trim()
           subtitle = parts[1].trim()
         }
-        
+
         return {
           id: item.name || `slide-${index}`,
           tag: index === 0 ? 'Featured' : 'Highlight',
