@@ -92,6 +92,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import { domain } from '../data/helper.js'
 
 const loading = ref(false)
 const error = ref('')
@@ -120,7 +121,7 @@ async function handleSignUp() {
     params.append('user_category', form.userCategory)
     params.append('redirect_to', '/login')
 
-    const response = await fetch('http://192.168.0.94:8003/api/method/frappe.core.doctype.user.user.sign_up', {
+    const response = await fetch(`${domain}/api/method/frappe.core.doctype.user.user.sign_up`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',

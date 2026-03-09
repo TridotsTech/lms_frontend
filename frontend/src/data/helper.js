@@ -1,5 +1,4 @@
-// export const domain = 'http://192.168.0.94:8003';
-export const domain = 'https://demolms.frappe.cloud/';
+export const domain = 'https://demolms.frappe.cloud';
 
 // export const check_Image = (Image) => {
 //     let baseUrl = domain

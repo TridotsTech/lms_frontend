@@ -92,6 +92,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
+import { domain } from '../data/helper.js'
 
 const showPassword = ref(false)
 const loading = ref(false)
@@ -109,7 +110,7 @@ async function handleLogin() {
   loading.value = true
 
   try {
-    const response = await fetch('http://192.168.0.94:8003/api/method/login', {
+    const response = await fetch(`${domain}/api/method/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

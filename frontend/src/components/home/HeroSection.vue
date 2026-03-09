@@ -98,6 +98,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { domain } from '../../data/helper.js'
 import BaseButton from '../ui/BaseButton.vue'
 
 const currentSlide = ref(0)
@@ -120,7 +121,7 @@ const fallbackSlides = [
 async function fetchSlides() {
   slidesLoading.value = true
   try {
-    const res = await fetch('http://192.168.0.94:8003/api/method/lms.api.public.get_website_slideshow_items')
+    const res = await fetch(`${domain}/api/method/lms.api.public.get_website_slideshow_items`)
     if (!res.ok) {
       console.warn('Slideshow API returned status:', res.status)
       slides.value = fallbackSlides
