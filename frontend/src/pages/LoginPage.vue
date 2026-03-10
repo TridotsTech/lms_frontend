@@ -108,7 +108,7 @@ async function handleLogin() {
   console.log('Attempting login for:', form.uid)
   error.value = ''
   loading.value = true
-
+   
   try {
     const response = await fetch(`${domain}/api/method/login`, {
       method: 'POST',

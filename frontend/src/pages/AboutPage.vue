@@ -14,24 +14,24 @@
     </section>
 
     <!-- Our Story -->
-    <section class="py-16 lg:py-20">
+    <section v-if="value.section_name == 'Our Story'" class="py-16 lg:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           <div class="flex-1">
             <div class="rounded-2xl overflow-hidden bg-brown-100 aspect-[4/3]">
-              <img src="/images/pathway-cabin.jpg" alt="Course Flick team" class="w-full h-full object-cover" @error="onImgError" />
+              <img :src='check_Image(value.left_image)' alt="Course Flick team" class="w-full h-full object-cover" @error="onImgError" />
             </div>
           </div>
           <div class="flex-1 space-y-5">
-            <h2 class="text-3xl font-bold text-gray-900">Our <span class="font-display italic text-brown-700">Story</span></h2>
+            <h2  class="text-3xl font-bold text-gray-900">{{value.title}}<span class="font-display italic text-brown-700 pl-[10px]">{{value.span_title}}</span></h2>
             <p class="text-gray-500 leading-relaxed">
-              Course Flick was founded with a simple but powerful idea: that high-quality aviation training shouldn't be locked behind geography, cost, or access. Too many aspiring aviation professionals — cabin crew candidates, security officers, dispatchers, and ground operations staff — face barriers to the training they need to launch and grow their careers.
+              {{value.description_1 }}
             </p>
             <p class="text-gray-500 leading-relaxed">
-              We set out to change that by building a platform that brings structured, industry-aligned aviation training online. Every course on Course Flick is designed in collaboration with experienced aviation professionals who understand what airlines, airports, and regulators actually expect.
+              {{value.description_2 }}
             </p>
             <p class="text-gray-500 leading-relaxed">
-              Since our launch, we've served thousands of learners across multiple countries, helping them earn recognized certifications and move closer to their aviation career goals — whether they're just starting out or advancing to senior operational roles.
+              {{value.description_3 }}
             </p>
           </div>
         </div>
@@ -39,30 +39,16 @@
     </section>
 
     <!-- Mission & Vision -->
-    <section class="py-16 lg:py-20 bg-brown-50">
+    <section v-if="value.section_name == 'Mission & Vision'" class="py-16 lg:py-20 bg-brown-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <div  class="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div v-for="list in value.list" class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
             <div class="w-12 h-12 rounded-xl bg-brown-100 flex items-center justify-center mb-5">
-              <svg class="w-6 h-6 text-brown-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-              </svg>
+              <img :src="check_Image(list.icon)" :alt="list.title"/>
             </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Our Mission</h3>
+            <h3 class="text-xl font-bold text-gray-900 mb-3">{{list.title}}</h3>
             <p class="text-gray-500 leading-relaxed">
-              To democratize aviation education by providing accessible, affordable, and industry-relevant online training that empowers learners everywhere to build successful careers in the aviation and airline industry. We believe every aspiring aviation professional deserves a clear pathway to competence and certification, regardless of where they live.
-            </p>
-          </div>
-          <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
-            <div class="w-12 h-12 rounded-xl bg-brown-100 flex items-center justify-center mb-5">
-              <svg class="w-6 h-6 text-brown-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 0 0-2.455 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z" />
-              </svg>
-            </div>
-            <h3 class="text-xl font-bold text-gray-900 mb-3">Our Vision</h3>
-            <p class="text-gray-500 leading-relaxed">
-              To become the world's most trusted online platform for aviation and airline training — recognized by learners, employers, and industry bodies as the standard for professional development in aviation. We envision a future where anyone with the drive and dedication can access the training they need to succeed in this dynamic global industry.
+              {{list.description }}
             </p>
           </div>
         </div>
@@ -70,85 +56,86 @@
     </section>
 
     <!-- What Sets Us Apart -->
-    <section class="py-16 lg:py-20">
+    <section v-if="value.section_name == 'What Sets Us Apart'" class="py-16 lg:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">What Sets <span class="font-display italic text-brown-700">Course Flick</span> Apart</h2>
-          <p class="text-gray-500 max-w-2xl mx-auto">We don't just teach aviation theory — we prepare you for real aviation careers.</p>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">{{value?.title }} <span class="font-display italic text-brown-700">{{value?.span_title}}</span>{{value?.title_2}}</h2>
+          <p class="text-gray-500 max-w-2xl mx-auto">{{value?.sub_title}}</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          <div v-for="item in differentiators" :key="item.title" class="text-center">
+          <div v-for="item in value.list" :key="item.title" class="text-center">
             <div class="w-14 h-14 mx-auto mb-4 rounded-2xl bg-brown-50 flex items-center justify-center">
-              <svg class="w-7 h-7 text-brown-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+              <!-- <svg class="w-7 h-7 text-brown-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" :d="item.icon" />
-              </svg>
+              </svg> -->
+              <img :src="check_Image(item?.icon)" :alt="item?.title "/>
             </div>
-            <h3 class="text-base font-semibold text-gray-900 mb-2">{{ item.title }}</h3>
-            <p class="text-sm text-gray-500 leading-relaxed">{{ item.description }}</p>
+            <h3 class="text-base font-semibold text-gray-900 mb-2">{{ item?.title }}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{{ item?.description }}</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Stats -->
-    <section class="py-16 lg:py-20 bg-brown-900 text-white">
+    <section v-if="value.section_name == 'Stats'" class="py-16 lg:py-20 bg-brown-900 text-white">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold mb-4">Course Flick by the <span class="font-display italic text-gold-500">Numbers</span></h2>
-          <p class="text-white/60 max-w-xl mx-auto">Growing every day as more aviation professionals join our platform.</p>
+          <h2 class="text-3xl font-bold mb-4">{{value?.title }} <span class="font-display italic text-gold-500">{{value?.span_title}}</span></h2>
+          <p class="text-white/60 max-w-xl mx-auto">{{value?.description}}</p>
         </div>
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-          <div v-for="stat in stats" :key="stat.label" class="text-center">
-            <p class="text-4xl lg:text-5xl font-bold text-gold-500 mb-2">{{ stat.value }}</p>
-            <p class="text-sm text-white/60">{{ stat.label }}</p>
+          <div v-for="stat in value?.list" :key="stat.number" class="text-center">
+            <p class="text-4xl lg:text-5xl font-bold text-gold-500 mb-2">{{ stat.number }}</p>
+            <p class="text-sm text-white/60">{{ stat.	sub_title }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Our Values -->
-    <section class="py-16 lg:py-20">
+    <!-- Our Values   -->
+    <section  v-if="value.section_name == 'Our Core Values'" class="py-16 lg:py-20">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Our Core <span class="font-display italic text-brown-700">Values</span></h2>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">{{value.title}}<span class="font-display italic text-brown-700">{{value.span_title}}</span></h2>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div v-for="value in values" :key="value.title" class="border border-gray-100 rounded-2xl p-6">
+          <div v-for="item in value.list" :key="item.title" class="border border-gray-100 rounded-2xl p-6">
             <div class="w-10 h-10 rounded-lg bg-brown-50 flex items-center justify-center mb-4 text-brown-700 font-bold text-lg">
-              {{ value.number }}
+              {{ item.number }}
             </div>
-            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ value.title }}</h3>
-            <p class="text-sm text-gray-500 leading-relaxed">{{ value.description }}</p>
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ item.title }}</h3>
+            <p class="text-sm text-gray-500 leading-relaxed">{{ item         .description }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Who It's For -->
-    <section class="py-16 lg:py-20 bg-brown-50">
+    <!-- Who It's For v-if="value.section_name == 'Who It For'" -->
+    <section v-if="value.section_name == 'Who It For'"  class="py-16 lg:py-20 bg-brown-50">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-          <h2 class="text-3xl font-bold text-gray-900 mb-4">Who Is <span class="font-display italic text-brown-700">Course Flick</span> For?</h2>
-          <p class="text-gray-500 max-w-2xl mx-auto">Whether you're just starting your aviation journey or deepening your expertise, Course Flick has a learning path for you.</p>
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">{{value?.title }} <span class="font-display italic text-brown-700">{{value?.span_title}}</span> {{value?.title_2}}</h2>
+          <p class="text-gray-500 max-w-2xl mx-auto">{{value?.description}}</p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div v-for="audience in audiences" :key="audience" class="flex items-start gap-3 bg-white rounded-xl p-5 border border-gray-100">
+          <div v-for="audience in value.list" :key="audience?.title" class="flex items-start gap-3 bg-white rounded-xl p-5 border border-gray-100">
             <div class="w-6 h-6 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0 mt-0.5">
               <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
             </div>
-            <p class="text-sm text-gray-700">{{ audience }}</p>
+            <p class="text-sm text-gray-700">{{ audience?.title }}</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section class="py-16 lg:py-20 bg-brown-900">
+    <section v-if="value.section_name == 'CTA'" class="py-16 lg:py-20 bg-brown-900">
       <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Ready to Start Your Aviation Journey?</h2>
-        <p class="text-white/60 mb-8 max-w-xl mx-auto">Join thousands of learners building aviation careers with Course Flick. Browse our courses and start learning today.</p>
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">{{value.title}}</h2>
+        <p class="text-white/60 mb-8 max-w-xl mx-auto">{{value.sub_title}}</p>
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <BaseButton variant="solid-white" to="/courses" size="lg">Explore Courses</BaseButton>
+          <BaseButton variant="solid-white" :to="JSON.parse(value.btn)?.btn_redirect_url" size="lg">{{JSON.parse(value.btn)?.btn_text}}</BaseButton>
           <BaseButton variant="outline" to="/contact" size="lg" class="!border-white/30 !text-white hover:!bg-white/10">Contact Us</BaseButton>
         </div>
       </div>
@@ -159,7 +146,7 @@
 <script setup>
 import SectionBadge from '../components/ui/SectionBadge.vue'
 import BaseButton from '../components/ui/BaseButton.vue'
-import { domain } from '../data/helper'
+import { check_Image, domain } from '../data/helper'
 import { onMounted, ref } from 'vue'
 
 let pageContent = ref([])
