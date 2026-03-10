@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "frappe-ui": "^0.1.262",
+    "feather-icons": "4.29.1",
+    "frappe-ui": "^0.1.54",
     "lucide-vue-next": "^0.564.0",
     "vue": "^3.4.0",
     "vue-router": "^4.3.0",

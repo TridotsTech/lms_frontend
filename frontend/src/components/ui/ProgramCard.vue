@@ -15,7 +15,7 @@
     <div class="flex-1 w-full">
       <div class="rounded-2xl overflow-hidden bg-brown-100 aspect-[16/10]">
         <img
-          :src="check_Image(image)"
+          :src="image ? check_Image(image) :''"
           :alt="title"
           class="w-full h-full object-cover"
           @error="onImgError"
