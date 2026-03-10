@@ -79,7 +79,7 @@
                             </div>
                             <div>
                                 <p class="text-[9px] font-black uppercase tracking-widest text-slate-400">Content</p>
-                                <p class="text-sm font-bold text-slate-900">{{ course.custom_lessons_count || course.curriculum?.length || 0 }} Lessons</p>
+                                <p class="text-sm font-bold text-slate-900">{{ course.custom_lessons_count || course.curriculum?.length || 0 }} Chapter</p>
                             </div>
                         </div>
                          <div class="flex items-center gap-3">

@@ -105,7 +105,7 @@
               {{ item.number }}
             </div>
             <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ item.title }}</h3>
-            <p class="text-sm text-gray-500 leading-relaxed">{{ item         .description }}</p>
+            <p class="text-sm text-gray-500 leading-relaxed">{{ item.description }}</p>
           </div>
         </div>
       </div>
