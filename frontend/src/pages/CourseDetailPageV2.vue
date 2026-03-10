@@ -328,6 +328,7 @@ import {
 } from 'lucide-vue-next'
 import { useAuth } from '../composables/useAuth'
 import CourseCard from '../components/ui/CourseCard.vue'
+import { domain } from '../data/helper'
 
 const route = useRoute()
 const router = useRouter()
@@ -367,7 +368,7 @@ async function fetchCourseDetails() {
   if (!id) return
 
   try {
-    const response = await fetch(`/api/method/lms.lms.v2_api.get_course_details_v2?course_id=${id}`)
+    const response = await fetch(`${domain}/api/method/lms.lms.v2_api.get_course_details_v2?course_id=${id}`)
     const data = await response.json()
     course.value = data.message || null
   } catch (error) {

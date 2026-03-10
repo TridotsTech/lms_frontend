@@ -26,32 +26,29 @@ import { onMounted, ref } from 'vue'
 import { domain } from '../data/helper'
 
 
-import { createResource } from 'frappe-ui'
-
-
 const pageContent = ref([])
+// console.log(pageContent,"pppppp")
 
-const pageContentResource = createResource({
-  url: 'go1_cms.go1_cms.api.get_page_content',
-  // method: 'POST',
-  makeParams() {
-    return {
-      route: 'p/home'
+
+
+async function fetchPageContent() {
+  try {
+    let payload = {
+      "route": "p/home"
     }
-  },
-  onSuccess(data) {
-    if (data?.message?.page_content) {
-      pageContent.value = data.message.page_content
+    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    let res = await resp.json()
+    if (res && res.message && res.message.page_content) {
+      pageContent.value = res.message.page_content
     } else {
       pageContent.value = []
     }
-  },
-  onError(error) {
-    console.error(error)
+  } catch (err) {
+    console.error(err.message)
   }
-})
+}
 
 onMounted(() => {
-  pageContentResource.fetch()
+  fetchPageContent()
 })
 </script>

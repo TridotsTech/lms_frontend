@@ -120,6 +120,7 @@ import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import SectionBadge from '../components/ui/SectionBadge.vue'
 import CourseCard from '../components/ui/CourseCard.vue'
+import { domain } from '../data/helper'
 
 const router = useRouter()
 const courses = ref([])
@@ -154,8 +155,9 @@ const filteredCourses = computed(() => {
 })
 
 async function fetchCourses() {
+  debugger
   try {
-    const response = await fetch('/api/method/lms.lms.v2_api.get_courses_v2')
+    const response = await fetch(`${domain}/api/method/lms.lms.v2_api.get_courses_v2`)
     const data = await response.json()
     courses.value = data.message || []
   } catch (error) {
@@ -165,7 +167,7 @@ async function fetchCourses() {
 
 async function fetchCategories() {
   try {
-    const response = await fetch('/api/method/lms.lms.v2_api.get_categories_v2')
+    const response = await fetch(`${domain}/api/method/lms.lms.v2_api.get_categories_v2`)
     const data = await response.json()
     categories.value = data.message || []
   } catch (error) {

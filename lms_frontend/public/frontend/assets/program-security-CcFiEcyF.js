@@ -1,0 +1,1 @@
+const s="/assets/lms_frontend/frontend/images/avatar-1.png",n="/assets/lms_frontend/frontend/images/hero-flight.png",t="/assets/lms_frontend/frontend/images/program-cabin.png",o="/assets/lms_frontend/frontend/images/program-security.png";export{s as _,n as a,t as b,o as c};

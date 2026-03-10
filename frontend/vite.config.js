@@ -27,7 +27,7 @@ export default defineConfig({
   },
   // Ensure assets are served relative to this app structure
   // or use a root relative path if installed in bench
-  base: '/',
+  base: '/assets/lms_frontend/frontend/',
   build: {
     // Build output to the public folder of the frappe app
     outDir: path.resolve(__dirname, '../lms_frontend/public/frontend'),
