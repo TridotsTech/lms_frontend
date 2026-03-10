@@ -1,14 +1,14 @@
 <template>
-  <div>
+  <div  v-for="value in pageContent" :key="value.name || value.section_name">
     <!-- Hero -->
-    <section class="bg-brown-50 py-16">
+    <section v-if="value.section_name == 'Welcome to Course Flick'" class="bg-brown-50 py-16">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-2">
         <SectionBadge label="About Us" class="mb-6" />
         <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
-          Welcome to <span class="font-display italic text-brown-700">Course Flick</span>
+          {{value.title }} <span class="font-display italic text-brown-700">{{value.span_title}}</span>
         </h1>
         <p class="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          A purpose-built aviation learning platform designed to make professional airline and aviation training accessible, engaging, and career-aligned for learners around the world.
+          {{value.description}}
         </p>
       </div>
     </section>
@@ -159,6 +159,10 @@
 <script setup>
 import SectionBadge from '../components/ui/SectionBadge.vue'
 import BaseButton from '../components/ui/BaseButton.vue'
+import { domain } from '../data/helper'
+import { onMounted, ref } from 'vue'
+
+let pageContent = ref([])
 
 const differentiators = [
   {
@@ -214,4 +218,27 @@ const audiences = [
 function onImgError(e) {
   e.target.src = 'https://placehold.co/600x450/F5E6D8/5B2C0E?text=Course+Flick'
 }
+
+
+async function fetchPageContent() {
+  try {
+    let payload = {
+      "route": "p/about-us"
+    }
+    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    let res = await resp.json()
+    if (res && res.message && res.message.page_content) {
+      pageContent.value = res.message.page_content
+    } else {
+      pageContent.value = []
+    }
+  } catch (err) {
+    console.error(err.message)
+  }
+}
+
+onMounted(() => {
+  fetchPageContent()
+})
+
 </script>

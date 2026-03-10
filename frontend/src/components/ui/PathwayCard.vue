@@ -14,7 +14,7 @@
       </span>
     </div>
     <div class="p-5">
-      <h3 class="text-lg font-semibold text-gray-900 mb-2">{{ title }}</h3>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2 min-h-[40px]">{{ title }}</h3>
       <p class="text-sm text-gray-500 leading-relaxed line-clamp-2">{{ description }}</p>
     </div>
   </div>

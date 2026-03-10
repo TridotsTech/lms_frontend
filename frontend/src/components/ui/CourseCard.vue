@@ -18,7 +18,7 @@
 
     <!-- Content -->
     <div class="p-5 flex flex-col flex-1">
-      <h3 class="text-lg font-semibold text-gray-900 mb-2 line-clamp-2">{{ title }}</h3>
+      <h3 class="text-lg font-semibold text-gray-900 mb-2  line-clamp-2">{{ title }}</h3>
       <p class="text-sm text-gray-500 leading-relaxed mb-4 line-clamp-3 flex-1">{{ description }}</p>
 
       <!-- Meta row -->
