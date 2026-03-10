@@ -151,56 +151,6 @@ import { onMounted, ref } from 'vue'
 
 let pageContent = ref([])
 
-const differentiators = [
-  {
-    title: 'Industry-Designed Curriculum',
-    description: 'Every course is built with input from working aviation professionals and aligned to international standards.',
-    icon: 'M4.26 10.147a60.438 60.438 0 0 0-.491 6.347A48.62 48.62 0 0 1 12 20.904a48.62 48.62 0 0 1 8.232-4.41 60.46 60.46 0 0 0-.491-6.347m-15.482 0a50.636 50.636 0 0 0-2.658-.813A59.906 59.906 0 0 1 12 3.493a59.903 59.903 0 0 1 10.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0 1 12 13.489a50.702 50.702 0 0 1 7.74-3.342M6.75 15a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Zm0 0v-3.675A55.378 55.378 0 0 1 12 8.443m-7.007 11.55A5.981 5.981 0 0 0 6.75 15.75v-1.5',
-  },
-  {
-    title: 'Flexible & Self-Paced',
-    description: 'Study anytime, anywhere, on any device. Our platform gives you 24/7 access to all enrolled course material.',
-    icon: 'M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3',
-  },
-  {
-    title: 'Verifiable Certifications',
-    description: 'Earn recognized certificates on completion that you can share with employers and on professional networks.',
-    icon: 'M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z',
-  },
-  {
-    title: 'Career-Focused Outcomes',
-    description: 'Courses map directly to real job roles in aviation security, cabin crew, flight dispatch, and ground operations.',
-    icon: 'M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0',
-  },
-]
-
-const stats = [
-  { value: '12+', label: 'Professional Courses' },
-  { value: '5', label: 'Training Pathways' },
-  { value: '12,000+', label: 'Enrolled Learners' },
-  { value: '25+', label: 'Countries Reached' },
-]
-
-const values = [
-  { number: '01', title: 'Accessibility', description: 'We believe quality aviation training should be available to everyone regardless of location, background, or financial means. Our platform is designed to lower barriers to entry.' },
-  { number: '02', title: 'Industry Relevance', description: 'Every piece of content on our platform is grounded in real-world aviation practice. We work closely with industry professionals to ensure our curriculum reflects what employers actually need.' },
-  { number: '03', title: 'Learner Success', description: 'Our ultimate measure of success is whether our learners achieve their career goals. We design every course, feature, and interaction with that outcome in mind.' },
-  { number: '04', title: 'Integrity', description: 'We maintain honest and transparent practices in everything we do — from course descriptions and certification claims to how we handle learner data and feedback.' },
-  { number: '05', title: 'Continuous Improvement', description: 'Aviation is a constantly evolving industry. We continuously update our content, incorporate learner feedback, and adopt new educational approaches to stay current.' },
-  { number: '06', title: 'Global Perspective', description: 'Aviation is inherently international. Our training reflects global standards and prepares learners to work in diverse aviation environments around the world.' },
-]
-
-const audiences = [
-  'Aspiring cabin crew and flight attendants preparing for airline interviews and training',
-  'Aviation security professionals seeking AVSEC certification and career advancement',
-  'Ground handling and airport operations staff looking to formalize their skills',
-  'Flight dispatch candidates building core competencies for operational roles',
-  'Airline operations professionals advancing into management and planning positions',
-  'Career changers exploring structured pathways into the aviation industry',
-  'Aviation training organizations seeking supplementary online course content',
-  'HR and recruitment teams evaluating candidate readiness for aviation roles',
-  'Students and graduates interested in aviation as a career field',
-]
 
 function onImgError(e) {
   e.target.src = 'https://placehold.co/600x450/F5E6D8/5B2C0E?text=Course+Flick'

@@ -2,6 +2,7 @@ export const domain = 'https://demolms.frappe.cloud';
 // export const domain = 'http://192.168.0.94:8003';
 
 // export const check_Image = (Image) => {
+    
 //     let baseUrl = domain
 //     if (Image && Image != '' && typeof Image == "string") {
 //         if (Image.indexOf('http') == -1) {

@@ -8,7 +8,7 @@
     </section>
 
     <section class="py-16">
-      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div  class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div v-for="section in sections" :key="section.title" class="mb-10">
           <h2 class="text-xl font-bold text-gray-900 mb-3">{{ section.title }}</h2>
           <div v-for="(para, i) in section.paragraphs" :key="i" class="text-sm text-gray-500 leading-relaxed mb-3">
@@ -24,6 +24,9 @@
 </template>
 
 <script setup>
+import { onMounted, ref } from 'vue'
+import { domain } from '../data/helper'
+
 const sections = [
   {
     title: '1. Acceptance of Terms',
@@ -131,4 +134,31 @@ const sections = [
     ],
   },
 ]
+
+
+const pageContent = ref([])
+// console.log(pageContent,"pppppp")
+
+
+
+async function fetchPageContent() {
+  try {
+    let payload = {
+      "route": "p/terms"
+    }
+    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    let res = await resp.json()
+    if (res && res.message && res.message.page_content) {
+      pageContent.value = res.message.page_content
+    } else {
+      pageContent.value = []
+    }
+  } catch (err) {
+    console.error(err.message)
+  }
+}
+
+onMounted(() => {
+  // fetchPageContent()
+})
 </script>

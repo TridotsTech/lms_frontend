@@ -1,24 +1,25 @@
 <template>
   <div>
-    <section class="bg-brown-50 py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <section v-for="value in pageContent" :key="value.name || value.section_name" :class="value.section_name == 'Welcome to Course Flick' ? 'bg-brown-50 py-16':''">
+      <div v-if="value.section_name == 'Welcome to Course Flick'" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <SectionBadge label="Instructions" />
         <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-          How to Use <span class="font-display italic text-brown-700">Course Flick</span>
+         {{value.title }} <span class="font-display italic text-brown-700">{{value.span_title}}</span>
         </h1>
         <p class="text-gray-500 max-w-2xl mx-auto text-lg">
-          Everything you need to know to get started, navigate the platform, and make the most of your learning experience.
+          {{value.description}} 
+          <!-- Everything you need to know to get started, navigate the platform, and make the most of your learning experience. -->
         </p>
       </div>
     </section>
 
     <section class="py-16 lg:py-20">
-      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div v-for="value in pageContent" :key="value.name || value.section_name"  class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <!-- Getting Started -->
-        <div class="mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 mb-8">Getting Started</h2>
+        <div v-if="value.section_name == 'Getting Started'" class="mb-16">
+          <h2 class="text-2xl font-bold text-gray-900 mb-8">{{value.title}}</h2>
           <div class="space-y-6">
-            <div v-for="(step, i) in gettingStarted" :key="i" class="flex gap-5">
+            <div v-for="(step, i) in value.list" :key="i" class="flex gap-5">
               <div class="w-10 h-10 rounded-full bg-brown-700 text-white flex items-center justify-center text-sm font-bold flex-shrink-0">
                 {{ i + 1 }}
               </div>
@@ -30,16 +31,14 @@
           </div>
         </div>
 
-        <!-- Navigating Your Dashboard -->
-        <div class="mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Navigating Your Dashboard</h2>
-          <p class="text-sm text-gray-500 leading-relaxed mb-6">Once logged in, your dashboard is your home base. Here's what you'll find:</p>
+        <!-- Navigating Your Dashboard v-if="value.section_name == 'Navigating Your Dashboard'" -->
+        <div v-if="value.section_name == 'Navigating Your Dashboard'" class="mb-16">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">{{value.title}}</h2>
+          <p class="text-sm text-gray-500 leading-relaxed mb-6">{{value.sub_title}}</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div v-for="item in dashboardItems" :key="item.title" class="bg-brown-50 rounded-xl p-5">
+            <div v-for="item in value.list" :key="item.title" class="bg-brown-50 rounded-xl p-5">
               <div class="flex items-center gap-3 mb-2">
-                <svg class="w-5 h-5 text-brown-700" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" :d="item.icon" />
-                </svg>
+                <img :src="check_Image(item.icon)" :alt="item.title"/>
                 <h3 class="text-sm font-semibold text-gray-900">{{ item.title }}</h3>
               </div>
               <p class="text-sm text-gray-500 leading-relaxed">{{ item.description }}</p>
@@ -48,7 +47,7 @@
         </div>
 
         <!-- Taking a Course -->
-        <div class="mb-16">
+        <div v-if="value.section_name == 'Taking a Course'" class="mb-16">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Taking a Course</h2>
           <p class="text-sm text-gray-500 leading-relaxed mb-6">Here's what a typical learning experience looks like on Course Flick:</p>
           <div class="border border-gray-200 rounded-2xl overflow-hidden divide-y divide-gray-200">
@@ -65,7 +64,7 @@
         </div>
 
         <!-- Certificates -->
-        <div class="mb-16">
+        <div v-if="value.section_name == 'Certificates'" class="mb-16">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Earning Your Certificate</h2>
           <div class="bg-brown-50 rounded-2xl p-6 sm:p-8">
             <p class="text-sm text-gray-500 leading-relaxed mb-4">
@@ -83,7 +82,7 @@
         </div>
 
         <!-- Tips -->
-        <div class="mb-16">
+        <div v-if="value.section_name == 'Tips'" class="mb-16">
           <h2 class="text-2xl font-bold text-gray-900 mb-4">Tips for Success</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div v-for="tip in tips" :key="tip" class="flex items-start gap-3 bg-white border border-gray-100 rounded-xl p-4">
@@ -96,7 +95,7 @@
         </div>
 
         <!-- Need Help -->
-        <div class="bg-brown-900 rounded-2xl p-8 text-center">
+        <div v-if="value.section_name == 'Need Help'" class="bg-brown-900 rounded-2xl p-8 text-center">
           <h2 class="text-2xl font-bold text-white mb-3">Need Help?</h2>
           <p class="text-white/60 mb-6 max-w-md mx-auto text-sm">If you run into any issues or have questions about using the platform, our support team is here to help.</p>
           <BaseButton variant="solid-white" to="/contact">Contact Support</BaseButton>
@@ -109,6 +108,8 @@
 <script setup>
 import SectionBadge from '../components/ui/SectionBadge.vue'
 import BaseButton from '../components/ui/BaseButton.vue'
+import { check_Image, domain } from '../data/helper'
+import { onMounted, ref } from 'vue'
 
 const gettingStarted = [
   { title: 'Create Your Account', description: 'Sign up with your email address and set a secure password. Fill in your basic profile information so we can personalize your experience.' },
@@ -151,4 +152,28 @@ const tips = [
   'Review modules you found challenging before moving to the next section',
   'Download your certificate promptly and add it to your LinkedIn profile',
 ]
+
+let pageContent = ref([])
+
+async function fetchPageContent() {
+  try {
+    let payload = {
+      "route": "p/instructions"
+    }
+    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    let res = await resp.json()
+    if (res && res.message && res.message.page_content) {
+      pageContent.value = res.message.page_content
+    } else {
+      pageContent.value = []
+    }
+  } catch (err) {
+    console.error(err.message)
+  }
+}
+
+onMounted(() => {
+  fetchPageContent()
+})
+
 </script>
