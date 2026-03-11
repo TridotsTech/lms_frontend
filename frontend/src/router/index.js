@@ -4,7 +4,7 @@ import { useAuth } from '../composables/useAuth.js'
 
 const routes = [
   { path: '/', name: 'Home', component: HomePage },
-  { path: '/home', redirect: '/' },
+  { path: '/home',name: 'HomeAlias', component: HomePage },
   { path: '/v2', name: 'HomeV2', component: () => import('../pages/HomePageV2.vue') },
 
   // App Routes (Authenticated)

@@ -1,7 +1,8 @@
 <template>
   <nav class="sticky top-0 z-50 bg-brown-900 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-28">
+      <!-- <div class="flex items-center justify-between h-28"> -->
+      <div class="flex items-center justify-between  md:grid grid-cols-3 h-28">
         <!-- Left nav links (desktop) -->
         <div class="hidden md:flex items-center gap-6">
           <router-link v-for="link in navLinks" :key="link.label" :to="link.to"
@@ -27,14 +28,14 @@
         </div>
 
         <!-- Center logo -->
-        <div class="flex-shrink-0">
+        <div class="flex-shrink-0 flex items-center justify-center">
           <router-link to="/" class="flex items-center">
             <img src="/images/main-logo.png" alt="Aviation LMS" class="h-24 w-auto" @error="onLogoError" />
           </router-link>
         </div>
 
         <!-- Right auth buttons (desktop) -->
-        <div class="hidden md:flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-3 justify-end">
           <template v-if="loading">
             <!-- Skeleton Loader -->
             <div class="w-24 h-10 bg-white/10 rounded-lg animate-pulse"></div>

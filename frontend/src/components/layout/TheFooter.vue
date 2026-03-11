@@ -4,7 +4,7 @@
       <!-- Logo -->
       <div class="flex justify-center mb-8">
         <router-link to="/">
-          <img src="/images/main-logo.png" alt="Aviation LMS" class="h-28 w-auto" @error="onLogoError" />
+          <img src="/images/main-logo.png" alt="Aviation LMS" class="h-24 w-auto" @error="onLogoError" />
         </router-link>
       </div>
 
