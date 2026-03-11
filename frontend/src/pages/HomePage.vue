@@ -27,7 +27,7 @@ import { domain } from '../data/helper'
 
 
 const pageContent = ref([])
-// console.log(pageContent,"pppppp")
+
 
 
 
