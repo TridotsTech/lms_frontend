@@ -155,7 +155,7 @@ const filteredCourses = computed(() => {
 })
 
 async function fetchCourses() {
-  debugger
+  // debugger
   try {
     const response = await fetch(`${domain}/api/method/lms.lms.v2_api.get_courses_v2`)
     const data = await response.json()
