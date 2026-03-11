@@ -162,7 +162,7 @@ async function fetchPageContent() {
     let payload = {
       "route": "p/about-us"
     }
-    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json",'X-Frappe-CSRF-Token': window.csrf_token || 'None' }, body: JSON.stringify(payload) })
     let res = await resp.json()
     if (res && res.message && res.message.page_content) {
       pageContent.value = res.message.page_content

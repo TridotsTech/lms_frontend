@@ -48,10 +48,10 @@
 
         <!-- Taking a Course -->
         <div v-if="value.section_name == 'Taking a Course'" class="mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Taking a Course</h2>
-          <p class="text-sm text-gray-500 leading-relaxed mb-6">Here's what a typical learning experience looks like on Course Flick:</p>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">{{value.title}}</h2>
+          <p class="text-sm text-gray-500 leading-relaxed mb-6">{{value.span_title}}</p>
           <div class="border border-gray-200 rounded-2xl overflow-hidden divide-y divide-gray-200">
-            <div v-for="(item, i) in courseFlow" :key="i" class="flex items-start gap-4 px-5 py-4">
+            <div v-for="(item, i) in value.list" :key="i" class="flex items-start gap-4 px-5 py-4">
               <span class="w-7 h-7 rounded-lg bg-brown-50 text-brown-700 flex items-center justify-center text-xs font-semibold flex-shrink-0 mt-0.5">
                 {{ String(i + 1).padStart(2, '0') }}
               </span>
@@ -63,19 +63,19 @@
           </div>
         </div>
 
-        <!-- Certificates -->
-        <div v-if="value.section_name == 'Certificates'" class="mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Earning Your Certificate</h2>
+        <!-- Certificates v-if="value.section_name == 'Certificates'"-->
+        <div v-if="value.section_name == 'Certificates'"  class="mb-16">
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">{{value.title}}</h2>
           <div class="bg-brown-50 rounded-2xl p-6 sm:p-8">
             <p class="text-sm text-gray-500 leading-relaxed mb-4">
-              Upon completing all modules and passing the required assessments in a course, you will automatically receive a digital Certificate of Completion. Here's what you need to know:
+              {{ value.description }}
             </p>
             <ul class="space-y-3">
-              <li v-for="(point, i) in certInfo" :key="i" class="flex items-start gap-3">
+              <li v-for="(item, i) in value.list" :key="item.point" class="flex items-start gap-3">
                 <div class="w-5 h-5 rounded-full bg-emerald-50 flex items-center justify-center flex-shrink-0 mt-0.5">
                   <svg class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" /></svg>
                 </div>
-                <p class="text-sm text-gray-600">{{ point }}</p>
+                <p class="text-sm text-gray-600">{{ item.point }}</p>
               </li>
             </ul>
           </div>
@@ -83,22 +83,22 @@
 
         <!-- Tips -->
         <div v-if="value.section_name == 'Tips'" class="mb-16">
-          <h2 class="text-2xl font-bold text-gray-900 mb-4">Tips for Success</h2>
+          <h2 class="text-2xl font-bold text-gray-900 mb-4">{{value.title}}</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div v-for="tip in tips" :key="tip" class="flex items-start gap-3 bg-white border border-gray-100 rounded-xl p-4">
+            <div v-for="item in value.list" :key="item.tip" class="flex items-start gap-3 bg-white border border-gray-100 rounded-xl p-4">
               <svg class="w-5 h-5 text-gold-500 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
-              <p class="text-sm text-gray-600">{{ tip }}</p>
+              <p class="text-sm text-gray-600">{{ item.tip }}</p>
             </div>
           </div>
         </div>
 
         <!-- Need Help -->
         <div v-if="value.section_name == 'Need Help'" class="bg-brown-900 rounded-2xl p-8 text-center">
-          <h2 class="text-2xl font-bold text-white mb-3">Need Help?</h2>
-          <p class="text-white/60 mb-6 max-w-md mx-auto text-sm">If you run into any issues or have questions about using the platform, our support team is here to help.</p>
-          <BaseButton variant="solid-white" to="/contact">Contact Support</BaseButton>
+          <h2 class="text-2xl font-bold text-white mb-3">{{value.title}}</h2>
+          <p class="text-white/60 mb-6 max-w-md mx-auto text-sm">{{value.description}}</p>
+          <BaseButton variant="solid-white" :to="JSON.parse(value.button)?.btn_redirect_url">{{JSON.parse(value.button)?.btn_text}}</BaseButton>
         </div>
       </div>
     </section>
@@ -160,7 +160,7 @@ async function fetchPageContent() {
     let payload = {
       "route": "p/instructions"
     }
-    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
+    let resp = await fetch(`${domain}/api/method/go1_cms.go1_cms.api.get_page_content`, { method: 'POST', headers: { "Content-Type": "application/json",'X-Frappe-CSRF-Token': window.csrf_token || 'None' }, body: JSON.stringify(payload) })
     let res = await resp.json()
     if (res && res.message && res.message.page_content) {
       pageContent.value = res.message.page_content
