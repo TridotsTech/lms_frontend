@@ -125,9 +125,9 @@ async function handleLogin() {
     console.log('Login response status:', response.status)
 
     if (response.ok) {
-      console.log('Login successful, redirecting to /lms')
+      // console.log('Login successful, redirecting to /lms')
       // Redirect to LMS dashboard on success
-      window.location.href = '/lms'
+      window.location.href = '/lms/dashboard'
     } else {
       const data = await response.json()
       console.log('Login failed data:', data)

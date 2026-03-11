@@ -51,6 +51,7 @@ async function fetchPageContent() {
 }
 
 onMounted(() => {
+ 
   fetchPageContent()
 })
 </script>
