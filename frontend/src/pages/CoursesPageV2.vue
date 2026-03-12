@@ -78,7 +78,7 @@
           Showing
           <span class="font-semibold text-gray-600">{{ filteredCourses.length }}</span>
           course{{ filteredCourses.length !== 1 ? "s" : "" }}
-          <span v-if="activeCategory !== 'all'">
+          <span v-if="activeCategory.slug !== 'all'">
             in <span class="font-semibold text-brown-700">{{ activeCategoryLabel }}</span>
           </span>
           <span v-if="searchQuery">
@@ -149,7 +149,7 @@
           </p>
           <button
             @click="
-              activeCategory = 'all';
+              activeCategory = categories.find(c => c.slug === 'all');
               searchQuery = '';
             "
             class="text-sm font-semibold text-brown-700 hover:text-brown-800 transition-colors"
@@ -178,7 +178,7 @@ const categories = ref([{ slug: "all", label: "All Courses" }]);
 const activeCategory = ref( {
     slug: "all",
     label: "All Courses",
-  },);
+  });
 
 const searchQuery = ref("");
 const loading = ref(true);
@@ -192,7 +192,7 @@ const activeCategoryLabel = computed(() => {
 const filteredCourses = computed(() => {
   let result = courses.value;
 
-  if (activeCategory.value !== "all") {
+  if (activeCategory.value.slug !== "all") {
     // Backend API now returns the slug in the 'category' field
     result = result.filter((c) => c.category === activeCategory.value.slug);
   }
