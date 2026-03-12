@@ -386,12 +386,9 @@ async function handleEnrollment() {
     window.location.href = '/login'
     return
   }
-
   enrolling.value = true
   try {
-    const res = await fetch(`/api/method/lms.lms.v2_api.enroll_in_course?course_id=${course.value.id}`, {
-      method: 'POST'
-    })
+    const res = await fetch(`/api/method/lms.lms.v2_api.enroll_in_course?course_id=${course.value.id}`, { method: 'POST', headers: { "Content-Type": "application/json",'X-Frappe-CSRF-Token': window.csrf_token || 'None' }})
     const data = await res.json()
     if (data.message && data.message.status === 'success') {
       course.value.is_enrolled = true
