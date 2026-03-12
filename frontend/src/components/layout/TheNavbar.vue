@@ -79,7 +79,8 @@
                     </div>
                     LMS Dashboard
                   </a>
-                  <a :href="'/lms/user/' + (user.username || 'me')"
+                  <!-- <a :href="'/lms/user/' + (user.username || 'me')" -->
+                  <a href="/lms/profile"
                     class="flex items-center gap-3 px-5 py-3 text-sm font-medium text-brown-600 hover:text-brown-900 hover:bg-brown-100 transition-colors group">
                     <div
                       class="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-brown-400 group-hover:bg-gold-100 group-hover:text-gold-600 transition-colors">
