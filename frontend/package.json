@@ -13,6 +13,7 @@
     "frappe-ui": "^0.1.54",
     "lucide-vue-next": "^0.564.0",
     "vue": "^3.4.0",
+    "vue-multiselect": "^3.4.0",
     "vue-router": "^4.3.0",
     "vue3-carousel": "^0.17.0"
   },
