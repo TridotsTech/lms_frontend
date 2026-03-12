@@ -120,9 +120,7 @@
                     Content
                   </p>
                   <p class="text-sm font-bold text-slate-900">
-                    {{
-                      course.custom_lessons_count || course.curriculum?.length || 0
-                    }}
+                    {{ course.custom_lessons_count || course.curriculum?.length || 0 }}
                     Chapter
                   </p>
                 </div>
@@ -556,7 +554,14 @@ async function fetchCourseDetails() {
 
 async function handleEnrollment() {
   if (course.value?.is_enrolled) {
-    router.push(`/portal/learn/${course.value.id}`);
+    if (course.value.current_lesson) {
+      let lessonCounter = course.value.current_lesson.split(".").join("-");
+      window.location.href = `/lms/courses/${course.value.id}/learn/${lessonCounter}`;
+      // router.push(`/lms/courses/${course.value.id}/learn/${lessonCounter}`);
+    } else {
+        window.location.href = `/lms/courses/${course.value.id}/learn/1-1`;
+    //   router.push(`/lms/courses/${course.value.id}/learn/1-1`);
+    }
     return;
   }
 
@@ -582,13 +587,16 @@ async function handleEnrollment() {
       if (course.value.current_lesson) {
         let lessonCounter = course.value.current_lesson.split(".").join("-");
 
-        router.push(`/lms/courses/${course.value.id}/learn/${lessonCounter}`);
+        window.location.href = `/lms/courses/${course.value.id}/learn/${lessonCounter}`;
+        // router.push(`/lms/courses/${course.value.id}/learn/${lessonCounter}`);
       } else {
-        router.push(`/lms/courses/${course.value.id}/learn/1-1`);
+        window.location.href = `/lms/courses/${course.value.id}/learn/1-1`;
+        // router.push(`/lms/courses/${course.value.id}/learn/1-1`);
       }
       //   router.push(`/portal/learn/${course.value.id}`)
     } else if (data.message && data.message.status === "payment_required") {
-      router.push(`/lms/billing/course/${course.value.id}`);
+      window.location.href = `/lms/billing/course/${course.value.id}`;
+      //   router.push(`/lms/billing/course/${course.value.id}`);
       //   alert(`${data.message.message} Price: ${data.message.currency} ${data.message.price}`)
     }
   } catch (e) {
