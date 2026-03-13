@@ -47,7 +47,7 @@
         <!-- Category -->
         <div>
           <label for="userCategory" class="block text-sm font-medium text-gray-700 mb-1.5">Category</label>
-          <select v-model="form.userCategory" id="userCategory" required :disabled="success"
+          <select v-model="form.userCategory" @change.prevent id="userCategory" required :disabled="isReadOnly"
             class="w-full px-4 py-2.5 text-sm border border-gray-200 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-brown-200 focus:border-brown-400 transition-colors disabled:opacity-60 disabled:cursor-not-allowed text-gray-700">
             <option value="" disabled>Select a category</option>
             <option value="Student">Student</option>
@@ -97,6 +97,7 @@ import { domain } from '../data/helper.js'
 const loading = ref(false)
 const error = ref('')
 const success = ref(false)
+const isReadOnly = ref(true)
 const successMessage = ref('')
 
 const form = reactive({
