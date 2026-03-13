@@ -191,8 +191,8 @@ const activeCategoryLabel = computed(() => {
 
 const filteredCourses = computed(() => {
   let result = courses.value;
-
-  if (activeCategory.value.slug !== "all") {
+   
+  if (activeCategory.value && activeCategory?.value?.slug !== "all"  ) {
     // Backend API now returns the slug in the 'category' field
     result = result.filter((c) => c.category === activeCategory.value.slug);
   }
