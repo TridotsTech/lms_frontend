@@ -78,12 +78,13 @@
           Showing
           <span class="font-semibold text-gray-600">{{ filteredCourses.length }}</span>
           course{{ filteredCourses.length !== 1 ? "s" : "" }}
-          <span v-if="activeCategory.slug !== 'all'">
+          <span v-if="activeCategory && activeCategory?.slug !== 'all'  ">
             in <span class="font-semibold text-brown-700">{{ activeCategoryLabel }}</span>
           </span>
           <span v-if="searchQuery">
             matching "<span class="font-semibold text-gray-600">{{ searchQuery }}</span
             >"
+            
           </span>
         </p>
 
@@ -185,7 +186,7 @@ const loading = ref(true);
 
 const activeCategoryLabel = computed(() => {
   
-  const cat = categories.value.find((c) => c.slug === activeCategory.value.slug);
+  const cat = categories.value.find((c) => c.slug === activeCategory?.value?.slug);
   return cat ? cat.label : "";
 });
 
@@ -194,7 +195,7 @@ const filteredCourses = computed(() => {
    
   if (activeCategory.value && activeCategory?.value?.slug !== "all"  ) {
     // Backend API now returns the slug in the 'category' field
-    result = result.filter((c) => c.category === activeCategory.value.slug);
+    result = result.filter((c) => c.category === activeCategory?.value?.slug);
   }
 
   if (searchQuery.value.trim()) {
