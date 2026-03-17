@@ -1,0 +1,35 @@
+Arguments: 
+  /home/server-admin/.nvm/versions/node/v21.7.3/bin/node /usr/local/bin/yarn build
+
+PATH: 
+  /home/server-admin/.local/bin:/home/server-admin/.local/bin:/home/server-admin/.nvm/versions/node/v21.7.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+
+Yarn version: 
+  1.22.19
+
+Node version: 
+  21.7.3
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: ENOSPC: no space left on device, mkdir '/tmp/yarn--1773671985936-0.4695295976845342'
+
+npm manifest: 
+  {
+      "name": "lms_frontend",
+      "version": "1.0.0",
+      "private": true,
+      "scripts": {
+          "dev": "cd frontend && yarn dev",
+          "build": "cd frontend && yarn build",
+          "preview": "cd frontend && yarn preview"
+      }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

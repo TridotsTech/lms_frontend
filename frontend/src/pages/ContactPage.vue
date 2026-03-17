@@ -102,6 +102,7 @@
 import { ref, reactive, onMounted } from 'vue'
 import SectionBadge from '../components/ui/SectionBadge.vue'
 import BaseButton from '../components/ui/BaseButton.vue'
+import { domain } from '../data/helper'
 
 const submitted = ref(false)
 const submitting = ref(false)
@@ -148,7 +149,7 @@ async function handleSubmit() {
       // but for logged in users (even basic web users) it is required.
     }
 
-    const res = await fetch('/api/method/lms.lms.v2_api.submit_contact_inquiry', {
+    const res = await fetch(`${domain}/api/method/lms.lms.v2_api.submit_contact_inquiry`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
