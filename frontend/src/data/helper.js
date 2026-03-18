@@ -16,6 +16,8 @@ export const domain = 'https://demolms.frappe.cloud';
 // }
 
 
+
+
 export const check_Image = (Image) => {
     let baseUrl = domain
     if (Image && Image != '' && typeof Image == "string") {
