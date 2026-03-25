@@ -1,4 +1,4 @@
-export const domain = 'https://demolms.frappe.cloud';
+export const domain = 'https://www.courseflick.com';
 // export const domain = 'http://192.168.0.95:8003';
 
 // export const check_Image = (Image) => {
