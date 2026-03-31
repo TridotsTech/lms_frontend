@@ -91,12 +91,17 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, onMounted, watch } from 'vue'
 import { domain } from '../data/helper.js'
+import { useAuth } from '../composables/useAuth.js'
+import { useRoute } from 'vue-router'
+const { user, fetchUser } = useAuth()
 
 const showPassword = ref(false)
 const loading = ref(false)
 const error = ref('')
+const route = useRoute()
+
 
 const form = reactive({
   uid: '',
@@ -140,4 +145,22 @@ async function handleLogin() {
     loading.value = false
   }
 }
+
+watch(user, (newUser) => {
+  if (newUser) {
+    // If user becomes logged in, redirect to dashboard
+    window.location.href = '/lms/dashboard'
+  }
+})
+
+watch(route, (newRoute) => {
+  if (newRoute) {
+    // If there's a redirect query param, redirect after login
+    window.location.reload()
+  }
+})
+
+onMounted(() => {
+ fetchUser()
+})
 </script>

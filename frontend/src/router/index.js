@@ -70,19 +70,26 @@ let authChecked = false;
 router.beforeEach(async (to, from, next) => {
   const { user, fetchUser } = useAuth()
 
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!authChecked) {
-      await fetchUser()
-      authChecked = true
-    }
-    if (!user.value) {
-      next({ name: 'Login', query: { redirect: to.fullPath } })
-    } else {
-      next()
-    }
-  } else {
-    next()
+  if (!authChecked) {
+    await fetchUser()
+    authChecked = true
   }
+  
+
+
+  if (user.value && to.name === 'Login') {
+    const redirect = to.query.redirect || '/home'
+    return next({ path: redirect, replace: true })
+  }
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!user.value) {
+      return next({ name: 'Login', query: { redirect: to.fullPath } })
+    }
+    return next()
+  }
+
+  next()
 })
 
 export default router
