@@ -48,8 +48,6 @@ website_route_rules = [
 	{"from_route": "/signup", "to_route": "index"},
 	{"from_route": "/forgot-password", "to_route": "index"},
 	{"from_route": "/frontend/<path:app_path>", "to_route": "index"},
-	{"from_route": "/app/<path:app_path>", "to_route": "index"},
-	{"from_route": "/app", "to_route": "index"},
 	{"from_route": "/portal/<path:app_path>", "to_route": "index"},
 	{"from_route": "/portal", "to_route": "index"},
 	{"from_route": "/", "to_route": "index"},
